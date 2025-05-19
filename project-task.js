@@ -57,11 +57,23 @@ while (true) {
     if (action === "add") {
         let animal = readlineSync.question("Enter the animal's name: ");
         let fee = Number(readlineSync.question("Enter the adoption fee: "));
-        addAnimal(animal, fee);
-        console.log(`${animal} added with a fee of $${fee}.`);
+        try {
+            addAnimal(animal, fee);
+            console.log(`${animal} has been added with a fee of $${fee}.`);
+
+        } catch (err) {
+            console.log("Error: Invalid animal name or adoption fee. Please try again.");
+
+        }
     } else if (action === "fee") {
         let animal = readlineSync.question("Enter the animal's name to find its adoption fee: ");
-        console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+        try {
+            console.log(`${animal}'s adoption fee is $${getAdoptionFee(animal)}.`);
+
+        } catch (err) {
+            console.log("Error: Animal not found in records. Please try again.");
+
+        }
     } else {
         console.log("Invalid action. Please choose 'add', 'fee', or 'exit'.");
     }
@@ -73,11 +85,18 @@ while (true) {
 Problems to Solve
 
 Invalid Input Errors:
-  What happens if the user provides a negative adoption fee or leaves the name blank?
+  What happens if the user provides a negative adoption fee or leaves the name blank? 
+  
+  Answer: An error is thrown telling me that I have entered an invalid animal name or adoption fee.
+
   What happens if the user tries to find the fee for an animal that hasn’t been added?
+
+  Answer: An error is thrown telling me that the animal has not been found in the records.
 
 Code Flow Problems:
   What happens if the program throws an exception? Does the rest of the code continue running?
+
+  Answer: The code does not continue running.
 
 Structured Exception Handling:
   Add try/catch blocks to handle the above errors gracefully.
